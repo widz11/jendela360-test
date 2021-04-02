@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Cars\Cars;
 use App\Models\Sales\Sales;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class SalesController extends Controller
 {
@@ -58,6 +59,9 @@ class SalesController extends Controller
             $car->qty -= 1;
             $car->save();
         }
+
+        // Send Invoice
+        $this->sendInvoice($sale);
 
         return redirect('/admin/sales')->with('message', 'Data has been saved.');
     }
@@ -120,6 +124,10 @@ class SalesController extends Controller
             $car->save();
         }
 
+        // Send Invoice
+        $sale = Sales::find($id);
+        $this->sendInvoice($sale);
+
         return redirect('/admin/sales')->with('message', 'Data has been saved.');
     }
 
@@ -143,5 +151,12 @@ class SalesController extends Controller
         }
 
         return redirect('/admin/sales')->with('message', 'Data has been deleted.');   
+    }
+
+    protected function sendInvoice($sale) {
+        Mail::send('emails.invoice', ['sale' => $sale], function ($m) use ($sale) {
+            $m->from(env('MAIL_FROM_ADDRESS'), 'Invocie');
+            $m->to($sale->buyerEmail, $sale->buyerName)->subject('Invoice');
+        });
     }
 }
