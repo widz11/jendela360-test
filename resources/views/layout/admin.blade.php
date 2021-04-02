@@ -15,8 +15,12 @@
                 <td><a href="/logout">Logout</a></td>
             </tr>
         </table>
-        <br>
-        <br>
+        @if (session('message'))
+            <br>
+            <div style="color:red;">
+                {{ session('message') }}
+            </div>
+        @endif
         @yield('content')
     </body>
 </html>

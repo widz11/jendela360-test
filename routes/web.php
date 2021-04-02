@@ -22,6 +22,16 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::get('/logout', [AuthController::class, 'logout']);
 
 Route::middleware('auth')->prefix('admin')->group(function () {
-    Route::get('sales', [SalesController::class, 'index'])->name('sales');
-    Route::get('cars', [CarsController::class, 'index'])->name('cars');
+    Route::prefix('sales')->group(function () {
+        Route::get('/', [SalesController::class, 'index'])->name('sales');
+    });
+
+    Route::prefix('cars')->group(function () {
+        Route::get('/', [CarsController::class, 'index'])->name('cars');
+        Route::get('/create', [CarsController::class, 'create']);
+        Route::post('/create', [CarsController::class, 'store']);
+        Route::get('/edit/{id}', [CarsController::class, 'edit']);
+        Route::post('/update/{id}', [CarsController::class, 'update']);
+        Route::get('/delete/{id}', [CarsController::class, 'delete']);
+    });
 });

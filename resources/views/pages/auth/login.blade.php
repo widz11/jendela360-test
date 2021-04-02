@@ -25,7 +25,7 @@
                         @enderror
                     </td>
                 </tr>
-                <div>
+                <tr>
                     <td><label for="password">Password:</label></td>
                     <td><input type="password" name="password" placeholder="password" required></td>
                     @error('password')
@@ -33,7 +33,7 @@
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
-                </div>
+                </tr>
             </table>
             <div>
                 <button type="submit">Login</button>
