@@ -10,7 +10,7 @@ class Sales extends BaseModel
 {
     use HasFactory;
 
-    protected $table = 'cars';
+    protected $table = 'sales';
 
     /**
      * Relation
@@ -18,6 +18,6 @@ class Sales extends BaseModel
      * @return $this
      */
     public function car() {
-        return $this->hasOne(Cars::class, 'car_id');
+        return $this->hasOne(Cars::class, 'id', 'car_id');
     }
 }

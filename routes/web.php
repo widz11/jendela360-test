@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Cars\CarsController;
+use App\Http\Controllers\Sales\ReportSalesController;
 use App\Http\Controllers\Sales\SalesController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +25,12 @@ Route::get('/logout', [AuthController::class, 'logout']);
 Route::middleware('auth')->prefix('admin')->group(function () {
     Route::prefix('sales')->group(function () {
         Route::get('/', [SalesController::class, 'index'])->name('sales');
+        Route::get('/create', [SalesController::class, 'create']);
+        Route::post('/create', [SalesController::class, 'store']);
+        Route::get('/edit/{id}', [SalesController::class, 'edit']);
+        Route::post('/update/{id}', [SalesController::class, 'update']);
+        Route::get('/delete/{id}', [SalesController::class, 'delete']);
+        Route::get('/report', [ReportSalesController::class, 'todayReport']);
     });
 
     Route::prefix('cars')->group(function () {

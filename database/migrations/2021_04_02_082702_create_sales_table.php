@@ -19,6 +19,7 @@ class CreateSalesTable extends Migration
             $table->string('buyerName')->nullable();
             $table->string('buyerEmail')->nullable();
             $table->string('buyerPhoneNumber')->nullable();
+            $table->timestamp('date')->nullable();
             $table->timestamps();
         });
     }
