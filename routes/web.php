@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Cars\CarsController;
 use App\Http\Controllers\Sales\ReportSalesController;
 use App\Http\Controllers\Sales\SalesController;
+use App\Http\Controllers\Test;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,3 +43,6 @@ Route::middleware('auth')->prefix('admin')->group(function () {
         Route::get('/delete/{id}', [CarsController::class, 'delete']);
     });
 });
+
+Route::get('test-1', [Test::class, 'sortByPrime']);
+Route::get('xxx', [Test::class, 'xxx']);
